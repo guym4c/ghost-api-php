@@ -1,0 +1,31 @@
+{
+    "name": "guym4c/ghost-api-php",
+    "description": "PHP Ghost API client",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/guym4c/ghost-api-php",
+    "keywords": ["ghost", "api", "php"],
+    "authors": [
+        {
+            "name": "Guy Mac",
+            "email": "hello@guymac.eu",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Guym4c\\GhostApiPhp\\": "src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "ext-json": "*",
+        "psr/http-message": "^1.0",
+        "shrikeh/teapot": "^2.3",
+        "myclabs/php-enum": "^1.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "8"
+    }
+}
