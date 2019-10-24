@@ -7,6 +7,7 @@ use Guym4c\GhostApiPhp\Filter;
 use Guym4c\GhostApiPhp\Ghost;
 use Guym4c\GhostApiPhp\GhostApiException;
 use Guym4c\GhostApiPhp\Request;
+use Guym4c\GhostApiPhp\Sort;
 
 abstract class AbstractResource extends AbstractModel {
 
@@ -24,15 +25,21 @@ abstract class AbstractResource extends AbstractModel {
     /**
      * @param Ghost       $ghost
      * @param int         $limit
+     * @param Sort|null   $sort
      * @param Filter|null $filter
      * @return CollectionRequest
      * @throws GhostApiException
      */
-    public static function get(Ghost $ghost, int $limit = null, Filter $filter = null): CollectionRequest {
+    public static function get(Ghost $ghost, int $limit = null, Sort $sort = null, Filter $filter = null): CollectionRequest {
 
-        $query = empty($filter)
-            ? []
-            : ['filter' => (string)$filter];
+        $query = [];
+        $query['filter'] = empty($filter)
+            ? null
+            : (string)$filter;
+
+        $query['sort'] = empty($sort)
+            ? null
+            : (string)$sort;
 
         return (new CollectionRequest($ghost,
             'GET',
