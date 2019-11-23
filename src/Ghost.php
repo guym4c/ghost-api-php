@@ -2,18 +2,29 @@
 
 namespace Guym4c\GhostApiPhp;
 
-use Exception;
-use Guym4c\GhostApiPhp\Model\AbstractContentResource;
-
 class Ghost {
 
+    private const DEFAULT_API_VERSION = 'v3';
+
+    /**
+     * @var string
+     */
     private $key;
 
+    /**
+     * @var string
+     */
     private $url;
 
-    public function __construct(string $baseUrl, string $key) {
+    /**
+     * @var string
+     */
+    private $version;
+
+    public function __construct(string $baseUrl, string $key, ?string $version = null) {
         $this->key = $key;
         $this->url = $baseUrl;
+        $this->version = $version ?? self::DEFAULT_API_VERSION;
     }
 
     /**
@@ -28,5 +39,12 @@ class Ghost {
      */
     public function getUrl(): string {
         return $this->url;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getVersion(): ?string {
+        return $this->version;
     }
 }

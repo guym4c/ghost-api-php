@@ -43,12 +43,12 @@ class CollectionRequest extends AbstractRequest implements Iterator {
         $json = $this->execute();
 
         $this->resources = [];
-        foreach ($json['resource_type'][$this->resourceType] as $jsonResource) {
+        foreach ($json[$this->resourceType] as $jsonResource) {
             $this->resources[] = new $this->resource($jsonResource);
         }
 
-        $this->page = $json['meta']['page'];
-        $this->numPages = $json['meta']['pages'];
+        $this->page = $json['meta']['pagination']['page'];
+        $this->numPages = $json['meta']['pagination']['pages'];
 
         return $this;
     }

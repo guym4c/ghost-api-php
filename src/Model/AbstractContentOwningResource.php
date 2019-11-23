@@ -8,9 +8,12 @@ abstract class AbstractContentOwningResource extends AbstractResource {
         'include' => 'count.posts',
     ];
 
+    /**
+     * @var ?int
+     */
     public $countPosts;
 
     public function __construct(array $json) {
-        $this->countPosts = $json['count']['posts'];
+        $this->countPosts = $json['count']['posts'] ?? null;
     }
 }

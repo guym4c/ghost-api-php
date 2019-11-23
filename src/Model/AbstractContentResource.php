@@ -88,7 +88,11 @@ class AbstractContentResource extends AbstractResource {
         $this->populateArrayType(Tag::class, 'tags', $json);
 
         $this->primaryAuthor = new Author($json['primary_author']);
-        $this->primaryTag = new Tag($json['primary_tag']);
+
+        if (!empty($json['primary_tag'])) {
+            $this->primaryTag = new Tag($json['primary_tag']);
+        }
+
         $this->meta = new ContentMeta($json);
 
         $this->hydrate($json);

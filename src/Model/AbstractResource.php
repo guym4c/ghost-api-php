@@ -47,7 +47,7 @@ abstract class AbstractResource extends AbstractModel {
             self::getResourceName(),
             '/' . self::getResourceName(),
             $limit,
-            $query)
+            array_merge($query, self::getQueryData()))
         )->getResponse();
     }
 

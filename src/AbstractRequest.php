@@ -10,7 +10,6 @@ use Teapot\StatusCode;
 abstract class AbstractRequest {
 
     private const GHOST_APIS_PATH = '/ghost/api';
-    private const GHOST_API_VERSION = 'v3';
     private const GHOST_CONTENT_API_PATH = '/content';
 
     /** @var Ghost */
@@ -32,7 +31,7 @@ abstract class AbstractRequest {
         $this->request = new Psr7\Request($method,
             sprintf("{$this->ghost->getUrl()}%s/%s%s%s",
                 self::GHOST_APIS_PATH,
-                self::GHOST_API_VERSION,
+                $this->ghost->getVersion(),
                 self::GHOST_CONTENT_API_PATH,
                 $uri
             )
