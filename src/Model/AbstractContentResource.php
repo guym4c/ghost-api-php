@@ -4,9 +4,6 @@ namespace Guym4c\GhostApiPhp\Model;
 
 use DateTime;
 use Exception;
-use Guym4c\GhostApiPhp\Ghost;
-use Guym4c\GhostApiPhp\GhostApiException;
-use Guym4c\GhostApiPhp\Request;
 
 class AbstractContentResource extends AbstractResource {
 
@@ -95,24 +92,5 @@ class AbstractContentResource extends AbstractResource {
         $this->meta = new ContentMeta($json);
 
         $this->hydrate($json);
-    }
-
-    /**
-     * @param Ghost  $ghost
-     * @param string $uri
-     * @return static
-     * @throws GhostApiException
-     * @throws Exception
-     */
-    public static function get(Ghost $ghost, string $uri): self {
-
-        $json = (new Request($ghost, 'GET', $uri, [
-            'include' => 'tags,authors',
-        ]))->getResponse();
-
-        $resources = array_merge($json['resource_type']['pages'] ?? [],
-            $json['resource_type']['posts'] ?? []);
-
-        return new self($resources[0]);
     }
 }

@@ -10,7 +10,7 @@ use Teapot\StatusCode;
 abstract class AbstractRequest {
 
     private const GHOST_APIS_PATH = '/ghost/api';
-    private const GHOST_API_VERSION = 'v2';
+    private const GHOST_API_VERSION = 'v3';
     private const GHOST_CONTENT_API_PATH = '/content';
 
     /** @var Ghost */
@@ -39,7 +39,7 @@ abstract class AbstractRequest {
         );
 
         $this->options['query'] = array_merge($query, [
-            'token' => $this->ghost->getKey(),
+            'key' => $this->ghost->getKey(),
         ]);
 
         if (!empty($body)) {

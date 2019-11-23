@@ -58,7 +58,7 @@ abstract class AbstractResource extends AbstractModel {
      * @throws GhostApiException
      */
     public static function byId(Ghost $ghost, string $id) {
-        return self::getResource($ghost, "/{$id}");
+        return self::getResource($ghost, "/{$id}/");
     }
 
     /**
@@ -68,7 +68,7 @@ abstract class AbstractResource extends AbstractModel {
      * @throws GhostApiException
      */
     public static function bySlug(Ghost $ghost, string $slug) {
-        return self::getResource($ghost, "/slug/{$slug}");
+        return self::getResource($ghost, "/slug/{$slug}/");
     }
 
     /**
@@ -81,10 +81,7 @@ abstract class AbstractResource extends AbstractModel {
         $json = (new Request($ghost, 'GET', '/' . self::getResourceName() . $uri, self::getQueryData()))
             ->getResponse();
 
-        $resources = array_merge($json['resource_type']['pages'] ?? [],
-            $json['resource_type']['posts'] ?? []);
-
-        return new static($resources['resource_type'][self::getResourceName()][0]);
+        return new static($json['resource_type'][self::getResourceName()][0]);
     }
 
     protected static function getResourceName() {

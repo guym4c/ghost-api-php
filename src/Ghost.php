@@ -11,9 +11,9 @@ class Ghost {
 
     private $url;
 
-    public function __construct(string $baseUri, string $key) {
+    public function __construct(string $baseUrl, string $key) {
         $this->key = $key;
-        $this->url = $baseUri;
+        $this->url = $baseUrl;
     }
 
     /**

@@ -26,7 +26,7 @@ class CollectionRequest extends AbstractRequest implements Iterator {
     /** @var ?int */
     private $numPages;
 
-    public function __construct(Ghost $ghost, string $method, string $resource, array $resourceType, string $uri = '', int $limit = null, array $query = [], array $body = []) {
+    public function __construct(Ghost $ghost, string $method, string $resource, string $resourceType, string $uri = '', int $limit = null, array $query = [], array $body = []) {
         parent::__construct($ghost, $method, $uri, $query, $body);
         $this->resource = $resource;
         $this->resourceType = $resourceType;
