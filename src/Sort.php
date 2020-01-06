@@ -13,7 +13,8 @@ class Sort {
     /**
      * Sort constructor.
      * @param $field
-     * @param $order SortOrder enum available
+     * @param $order string enum available
+     * @see SortOrder
      */
     public function __construct($field, $order) {
         $this->field = $field;
