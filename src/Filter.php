@@ -17,7 +17,7 @@ class Filter {
             ? "'{$value}'"
             : $value;
 
-        return "{$combinator}{$property}{$comparator}:{$value}";
+        return "{$combinator}{$property}:{$comparator}{$value}";
     }
 
     public function by(string $property, string $comparator, $value, bool $valueIsLiteral = false): self {
@@ -46,16 +46,12 @@ class Filter {
 
     public function __toString(): string {
         $result = '';
-        foreach (function() {
-            foreach ($this->filters as $filter) {
-                if ($filter instanceof self) {
-                    yield (string)$filter;
-                } else {
-                    yield $filter;
-                }
+        foreach ($this->filters as $filter) {
+            if ($filter instanceof self) {
+                $result .= (string)$filter;
+            } else {
+                $result .= $filter;
             }
-        } as $filter) {
-            $result .= $filter;
         }
         return $result;
     }
