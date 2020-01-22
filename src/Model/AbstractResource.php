@@ -81,7 +81,7 @@ abstract class AbstractResource extends AbstractModel {
         $json = (new Request($ghost, 'GET', '/' . self::getResourceName() . $uri, self::getQueryData()))
             ->getResponse();
 
-        return new static($json['resource_type'][self::getResourceName()][0]);
+        return new static($json[self::getResourceName()][0]);
     }
 
     protected static function getResourceName() {

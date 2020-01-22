@@ -4,7 +4,7 @@ namespace Guym4c\GhostApiPhp;
 
 class Ghost {
 
-    private const DEFAULT_API_VERSION = 'v3';
+    private const API_VERSION = 'v3';
 
     /**
      * @var string
@@ -21,10 +21,10 @@ class Ghost {
      */
     private $version;
 
-    public function __construct(string $baseUrl, string $key, ?string $version = null) {
+    public function __construct(string $baseUrl, string $key) {
         $this->key = $key;
         $this->url = $baseUrl;
-        $this->version = $version ?? self::DEFAULT_API_VERSION;
+        $this->version = self::API_VERSION;
     }
 
     /**
