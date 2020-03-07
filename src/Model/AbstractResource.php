@@ -77,11 +77,33 @@ abstract class AbstractResource extends AbstractModel {
      * @return static
      * @throws GhostApiException
      */
-    private static function getResource(Ghost $ghost, string $uri){
-        $json = (new Request($ghost, 'GET', '/' . self::getResourceName() . $uri, self::getQueryData()))
-            ->getResponse();
+    private static function getResource(Ghost $ghost, string $uri) {
+        $uri = self::getResourceName() . $uri;
+        $cache = $ghost->getCache();
 
-        return new static($json[self::getResourceName()][0]);
+        if ($cache
+            && $cache->contains($uri)
+        ) {
+            return $cache->fetch($uri);
+        }
+
+        try {
+            $json = (new Request($ghost, 'GET', "/{$uri}", self::getQueryData()))
+                ->getResponse();
+        } catch (GhostApiException $e) {
+            if (strpos($e->getMessage(), 'NotFoundError') !== false) {
+                return null;
+            }
+            throw $e;
+        }
+
+        $resource = new static($json[self::getResourceName()][0]);
+
+        if ($cache) {
+            $cache->save($uri, $resource, $ghost->getCacheLifetime());
+        }
+
+        return $resource;
     }
 
     protected static function getResourceName() {
