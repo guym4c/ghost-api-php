@@ -2,7 +2,7 @@
 
 namespace Guym4c\GhostApiPhp;
 
-use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\CacheProvider;
 
 class Ghost {
 
@@ -21,7 +21,7 @@ class Ghost {
     private $url;
 
     /**
-     * @var Cache|null
+     * @var CacheProvider|null
      */
     private $cache;
 
@@ -30,7 +30,7 @@ class Ghost {
      */
     private $cacheLifetime;
 
-    public function __construct(string $baseUrl, string $key, ?Cache $cache = null, ?int $cacheLifetime = null) {
+    public function __construct(string $baseUrl, string $key, ?CacheProvider $cache = null, ?int $cacheLifetime = null) {
         $this->key = $key;
         $this->url = $baseUrl;
         $this->cache = $cache;
@@ -59,9 +59,9 @@ class Ghost {
     }
 
     /**
-     * @return Cache|null
+     * @return CacheProvider|null
      */
-    public function getCache(): ?Cache {
+    public function getCache(): ?CacheProvider {
         return $this->cache;
     }
 
@@ -77,5 +77,12 @@ class Ghost {
      */
     public function getCacheLifetime(): int {
         return $this->cacheLifetime;
+    }
+
+    /**
+     * @return bool
+     */
+    public function flushCache(): bool {
+        return $this->cache->flushAll();
     }
 }
