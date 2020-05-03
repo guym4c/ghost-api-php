@@ -27,12 +27,20 @@ abstract class AbstractResource extends AbstractModel {
      * @param int         $limit
      * @param Sort|null   $sort
      * @param Filter|null $filter
+     * @param int         $page
      * @return CollectionRequest
      * @throws GhostApiException
      */
-    public static function get(Ghost $ghost, int $limit = null, Sort $sort = null, Filter $filter = null): CollectionRequest {
+    public static function get(
+        Ghost $ghost,
+        int $limit = null,
+        Sort $sort = null,
+        Filter $filter = null,
+        int $page = 1
+    ): CollectionRequest {
 
-        $query = [];
+        $query = ['page' => $page];
+
         $query['filter'] = empty($filter)
             ? null
             : (string)$filter;
