@@ -2,8 +2,6 @@
 
 namespace Guym4c\GhostApiPhp;
 
-use Iterator;
-
 class Filter {
 
     private $filters;
@@ -36,19 +34,35 @@ class Filter {
     }
 
     /**
-     * @param self[] $filters
+     * @param Filter $filter
      * @return self
      */
-    public function with(array $filters): self {
-        $this->filters[] = $filters;
+    public function with(self $filter): self {
+        $this->join($filter, '+');
         return $this;
+    }
+
+    /**
+     * @param Filter $filter
+     * @return self
+     */
+    public function else(self $filter): self {
+        $this->join($filter, ',');
+        return $this;
+    }
+
+    private function join (self $filter, string $type): void {
+        $this->filters[] = [
+            'filter' => $filter,
+            'type' => $type,
+        ];
     }
 
     public function __toString(): string {
         $result = '';
         foreach ($this->filters as $filter) {
-            if ($filter instanceof self) {
-                $result .= (string)$filter;
+            if (is_array($filter)) {
+                $result .= "{$filter['type']}(" . (string)$filter['filter'] . ')';
             } else {
                 $result .= $filter;
             }
