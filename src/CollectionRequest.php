@@ -112,4 +112,11 @@ class CollectionRequest extends AbstractRequest implements Iterator {
         $this->options['query']['page'] = 0;
         $this->getResponse();
     }
+
+    /**
+     * @return int|null
+     */
+    public function getNumPages(): ?int {
+        return $this->numPages;
+    }
 }
